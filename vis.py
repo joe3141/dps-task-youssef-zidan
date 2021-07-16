@@ -4,20 +4,12 @@ import matplotlib.pyplot as plt
 
 import datetime
 
+from utils import clean_dataset
+
 df = pd.read_csv("dataset.csv")
 
 
-# taking only first 5 relevant rows
-df = df.iloc[:, :5]
-# dropping rows with missing info (2021)
-df = df.dropna()
-# show only values for all sub categories
-df = df[df['AUSPRAEGUNG'] == 'insgesamt']
-# remove sum info from the value column
-df = df[df['MONAT'] != 'Summe']
-# make it into descending order chronologically
-df = df[::-1]
-
+df = clean_dataset(df)
 
 # Add datetime field
 df['date'] = df['MONAT'].apply(lambda x: x[:4] + "/" + x[4:])
